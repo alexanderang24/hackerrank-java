@@ -2,7 +2,7 @@ package com.example.demo;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Calendar;
+import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -10,17 +10,19 @@ import java.util.Scanner;
 public class DemoApplication {
 
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        int month = sc.nextInt();
-        int day = sc.nextInt();
-        int year = sc.nextInt();
-        System.out.println(findDay(month, day, year));
-    }
+        Scanner scanner = new Scanner(System.in);
+        double payment = scanner.nextDouble();
+        scanner.close();
 
-    public static String findDay(int month, int day, int year) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month-1, day);
-        String date = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US);
-        return date.toUpperCase();
+        // Write your code here.
+        String us = NumberFormat.getCurrencyInstance(Locale.US).format(payment);
+        String india = NumberFormat.getCurrencyInstance(new Locale("en", "in")).format(payment);
+        String china = NumberFormat.getCurrencyInstance(Locale.CHINA).format(payment);
+        String france = NumberFormat.getCurrencyInstance(Locale.FRANCE).format(payment);
+
+        System.out.println("US: " + us);
+        System.out.println("India: " + india);
+        System.out.println("China: " + china);
+        System.out.println("France: " + france);
     }
 }
