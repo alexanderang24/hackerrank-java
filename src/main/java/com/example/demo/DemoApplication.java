@@ -2,41 +2,48 @@ package com.example.demo;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 @SpringBootApplication
 public class DemoApplication {
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String s = in.next();
-        int k = in.nextInt();
-
-        System.out.println(getSmallestAndLargest(s, k));
-    }
-
-    public static String getSmallestAndLargest(String s, int k) {
-        String smallest = "";
-        String largest = "";
-
-        // Complete the function
-        // 'smallest' must be the lexicographically smallest substring of length 'k'
-        // 'largest' must be the lexicographically largest substring of length 'k'
+        Scanner scan = new Scanner(System.in);
+        String s = scan.nextLine();
+        // Write your code here.
+        ArrayList<String> list = new ArrayList<>();
         String temp = "";
-        for (int i = 0; i <= s.length() - k; i++) {
-            temp = s.substring(i, i + k);
 
-            if(smallest.equals("")) smallest = temp;
-            if(largest.equals("")) largest = temp;
-
-            if (temp.compareTo(smallest) < 0) {
-                smallest = temp;
+        for (int i = 0; i < s.length(); i++) {
+            String charAt = String.valueOf(s.charAt(i));
+            if(!charAt.matches("[ !,?._'@]")) {
+                temp = temp + charAt;
+            } else if (!temp.equals("")) {
+                list.add(temp);
+                temp = "";
+                continue;
             }
-
-            if (temp.compareTo(largest) > 0) {
-                largest = temp;
+            if(i == s.length() - 1 && !temp.equals("")) {
+                list.add(temp);
             }
         }
-        return smallest + "\n" + largest;
+
+        System.out.println(list.size());
+        for (String a: list) {
+            System.out.println(a);
+        }
+        scan.close();
+
+        // Simpler solution using String.split
+//        if (s.trim().length() == 0 || s.trim().length() > 400000) {
+//            System.out.println(0);
+//            return;
+//        }
+//        String words[]=s.trim().split("[ !,?.\\_'@]+");
+//        System.out.println(words.length);
+//        for (String word: words) {
+//            System.out.println(word);
+//        }
     }
 }
