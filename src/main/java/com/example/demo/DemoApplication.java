@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -17,7 +18,7 @@ public class DemoApplication {
             try {
                 Pattern.compile(pattern);
                 System.out.println("Valid");
-            } catch(Exception e) {
+            } catch(PatternSyntaxException e) {
                 System.out.println("Invalid");
             }
             testCases--;
