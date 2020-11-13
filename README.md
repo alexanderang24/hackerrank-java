@@ -1,5 +1,6 @@
 # hackerrank-java
 Personal HackerRank solutions for Java problems.
+https://www.hackerrank.com/domains/java
 
 To check solution for specific problem:
 1. Click on 'commits' or by https://github.com/plankrun/hackerrank-java/commits/main
