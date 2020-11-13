@@ -3,25 +3,26 @@ package com.example.demo;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 @SpringBootApplication
 public class DemoApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Scanner in = new Scanner(System.in);
-        int testCases = Integer.parseInt(in.nextLine());
-        while(testCases>0){
-            String pattern = in.nextLine();
-            //Write your code
-            try {
-                Pattern.compile(pattern);
-                System.out.println("Valid");
-            } catch(PatternSyntaxException e) {
-                System.out.println("Invalid");
-            }
-            testCases--;
+        while(in.hasNext()){
+            String IP = in.next();
+            System.out.println(IP.matches(new MyRegex().pattern));
         }
+    }
+}
+
+class MyRegex {
+    public final String pattern;
+
+    public MyRegex() {
+        pattern = "^([0-9]|[0-9][0-9]|((0|1)[0-9][0-9]|2[0-4][0-9]|25[0-5]))[.]" +
+                   "([0-9]|[0-9][0-9]|((0|1)[0-9][0-9]|2[0-4][0-9]|25[0-5]))[.]" +
+                   "([0-9]|[0-9][0-9]|((0|1)[0-9][0-9]|2[0-4][0-9]|25[0-5]))[.]" +
+                   "([0-9]|[0-9][0-9]|((0|1)[0-9][0-9]|2[0-4][0-9]|25[0-5]))$";
     }
 }
