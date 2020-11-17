@@ -3,28 +3,34 @@ package com.example.demo;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SpringBootApplication
 public class DemoApplication {
-    private static final Scanner scan = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        int n = Integer.parseInt(scan.nextLine());
-        while (n-- != 0) {
-            String userName = scan.nextLine();
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int testCases = Integer.parseInt(in.nextLine());
 
-            if (userName.matches(UsernameValidator.regularExpression)) {
-                System.out.println("Valid");
-            } else {
-                System.out.println("Invalid");
+        while(testCases>0){
+            String line = in.nextLine();
+
+            //Write your code here
+            String regex = "(<(.+)>)([^<]+)(</\\2>)";
+            Pattern p = Pattern.compile(regex);
+            Matcher m = p.matcher(line);
+            boolean noMatch = true;
+
+            while(m.find()) {
+                noMatch = false;
+                System.out.println(m.group(3));
             }
+
+            if(noMatch) {
+                System.out.println("None");
+            }
+            testCases--;
         }
     }
-}
-
-class UsernameValidator {
-    /*
-     * Write regular expression here.
-     */
-    public static final String regularExpression = "^[A-Za-z](\\w){7,29}$";
 }
