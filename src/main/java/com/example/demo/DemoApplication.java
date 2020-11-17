@@ -9,28 +9,28 @@ import java.util.regex.Pattern;
 @SpringBootApplication
 public class DemoApplication {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
+
+        String regex = "(\\w+)(\\W+\\1\\b)*";
+        Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+
         Scanner in = new Scanner(System.in);
-        int testCases = Integer.parseInt(in.nextLine());
+        int numSentences = Integer.parseInt(in.nextLine());
 
-        while(testCases>0){
-            String line = in.nextLine();
+        while (numSentences-- > 0) {
+            String input = in.nextLine();
 
-            //Write your code here
-            String regex = "(<(.+)>)([^<]+)(</\\2>)";
-            Pattern p = Pattern.compile(regex);
-            Matcher m = p.matcher(line);
-            boolean noMatch = true;
+            Matcher m = p.matcher(input);
 
-            while(m.find()) {
-                noMatch = false;
-                System.out.println(m.group(3));
+            // Check for subsequences of input that match the compiled pattern
+            while (m.find()) {
+                input = input.replaceAll(m.group(0), m.group(1));
             }
 
-            if(noMatch) {
-                System.out.println("None");
-            }
-            testCases--;
+            // Prints the modified sentence.
+            System.out.println(input);
         }
+
+        in.close();
     }
 }
