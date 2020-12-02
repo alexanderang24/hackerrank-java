@@ -8,17 +8,13 @@ import java.util.Scanner;
 @SpringBootApplication
 public class DemoApplication {
 
-    private static final Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) {
-        String n = scanner.nextLine();
-        BigInteger a = new BigInteger(n);
-        boolean prime = a.isProbablePrime(1);
-        if(prime) {
-            System.out.println("prime");
-        } else {
-            System.out.println("not prime");
-        }
-        scanner.close();
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner scanner = new Scanner(System.in);
+        BigInteger a = scanner.nextBigInteger();
+        BigInteger b = scanner.nextBigInteger();
+
+        System.out.println(a.add(b));
+        System.out.println(a.multiply(b));
     }
 }
