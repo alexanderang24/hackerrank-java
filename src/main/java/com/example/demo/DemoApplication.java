@@ -2,39 +2,44 @@ package com.example.demo;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 @SpringBootApplication
 public class DemoApplication {
 
-    public static void main(String[] args) {
-        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-
-        ArrayList<int[]> arrayList = new ArrayList<>();
-
-        for (int i = 0; i < n; i++) {
-            int[] temp  = new int[scanner.nextInt()];
-            for (int j = 0; j < temp.length; j++) {
-                temp[j] = scanner.nextInt();
-            }
-            arrayList.add(temp);
-        }
-
-        int totalQueries = scanner.nextInt();
-        for (int i = 0; i < totalQueries; i++) {
-            find(scanner.nextInt()-1, scanner.nextInt()-1, arrayList);
-        }
+    public static boolean canWin(int leap, int[] game) {
+        // Return true if you can win the game; otherwise, return false.
+        return winnable(leap, game, 0);
     }
 
-    private static void find(int x, int y, ArrayList<int[]> list) {
-        int[] row = list.get(x);
-        if(y >= row.length) {
-            System.out.println("ERROR!");
-        } else {
-            System.out.println(row[y]);
+    private static boolean winnable(int leap, int[] game, int pos) {
+        if (pos >= game.length){
+            return true;
+        } else if (pos == -1 || game[pos] == 1) {
+            return false;
         }
+        // mark this position is already visited
+        game[pos] = 1;
+
+        return winnable(leap, game, pos + 1) ||
+                winnable(leap, game, pos + leap) ||
+                winnable(leap, game, pos - 1);
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int q = scan.nextInt();
+        while (q-- > 0) {
+            int n = scan.nextInt();
+            int leap = scan.nextInt();
+
+            int[] game = new int[n];
+            for (int i = 0; i < n; i++) {
+                game[i] = scan.nextInt();
+            }
+
+            System.out.println( (canWin(leap, game)) ? "YES" : "NO" );
+        }
+        scan.close();
     }
 }
