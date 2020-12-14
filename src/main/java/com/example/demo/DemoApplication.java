@@ -2,44 +2,33 @@ package com.example.demo;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication
 public class DemoApplication {
 
-    public static boolean canWin(int leap, int[] game) {
-        // Return true if you can win the game; otherwise, return false.
-        return winnable(leap, game, 0);
-    }
-
-    private static boolean winnable(int leap, int[] game, int pos) {
-        if (pos >= game.length){
-            return true;
-        } else if (pos == -1 || game[pos] == 1) {
-            return false;
-        }
-        // mark this position is already visited
-        game[pos] = 1;
-
-        return winnable(leap, game, pos + 1) ||
-                winnable(leap, game, pos + leap) ||
-                winnable(leap, game, pos - 1);
-    }
-
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        int q = scan.nextInt();
-        while (q-- > 0) {
-            int n = scan.nextInt();
-            int leap = scan.nextInt();
-
-            int[] game = new int[n];
-            for (int i = 0; i < n; i++) {
-                game[i] = scan.nextInt();
-            }
-
-            System.out.println( (canWin(leap, game)) ? "YES" : "NO" );
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        List<Integer> list = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            list.add(i, scanner.nextInt());
         }
-        scan.close();
+
+        int q = scanner.nextInt();
+        for (int i = 0; i < q; i++) {
+            String type = scanner.next();
+            if (type.equals("Insert")) {
+                list.add(scanner.nextInt(), scanner.nextInt());
+            } else if (type.equals("Delete")) {
+                list.remove(scanner.nextInt());
+            }
+        }
+
+        String output = list.toString().substring(1, list.toString().length() - 1).replace(",","");
+        System.out.println(output);
     }
 }
