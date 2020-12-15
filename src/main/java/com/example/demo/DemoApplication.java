@@ -2,33 +2,32 @@ package com.example.demo;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 @SpringBootApplication
 public class DemoApplication {
 
     public static void main(String[] args) {
-        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        List<Integer> list = new ArrayList<>(n);
-        for (int i = 0; i < n; i++) {
-            list.add(i, scanner.nextInt());
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); sc.nextLine();
+        Map<String, Integer> map = new HashMap<>();
+
+        for (int i=0; i<n; i++) {
+            String name = sc.nextLine();
+            int phone = sc.nextInt();
+            map.put(name, phone);
+            sc.nextLine();
         }
 
-        int q = scanner.nextInt();
-        for (int i = 0; i < q; i++) {
-            String type = scanner.next();
-            if (type.equals("Insert")) {
-                list.add(scanner.nextInt(), scanner.nextInt());
-            } else if (type.equals("Delete")) {
-                list.remove(scanner.nextInt());
+        while (sc.hasNext()) {
+            String s = sc.nextLine();
+            if (map.get(s) == null) {
+                System.out.println("Not found");
+            } else {
+                System.out.println(s + "=" + map.get(s));
             }
         }
-
-        String output = list.toString().substring(1, list.toString().length() - 1).replace(",","");
-        System.out.println(output);
     }
 }
